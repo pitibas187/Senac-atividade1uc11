@@ -1,0 +1,1 @@
+O projeto GHLeilões se trata de um software feito para cadastro, listagem e consulta por filtros de produtos que estão disponíveis para leilão. Quanto a linguagem de programação, a escolhida foi a Java.
