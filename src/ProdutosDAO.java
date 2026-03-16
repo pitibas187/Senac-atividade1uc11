@@ -45,7 +45,24 @@ public class ProdutosDAO {
     
     public ArrayList<ProdutosDTO> listarProdutos(){
        
-        return null;
+        try{
+         conn = new conectaDAO().connectDB();
+         
+         prep = conn.prepareStatement("SELECT * from produtos");          
+         resultset = prep.executeQuery();
+          while(resultset.next()){
+           ProdutosDTO p = new ProdutosDTO();    
+           p.setId(resultset.getInt("id"));
+           p.setNome(resultset.getString("nome"));
+           p.setStatus(resultset.getString("status"));
+           p.setValor(resultset.getInt("valor"));
+           
+           listagem.add(p);
+          }
+         } catch (SQLException ex) {
+             System.out.println("driver não está disponível para acesso ou não existe");
+        }        
+        return listagem;
     }
     
     
