@@ -65,8 +65,41 @@ public class ProdutosDAO {
         return listagem;
     }
     
+    public void venderProduto(int id){
+     try{   
+     conn = new conectaDAO().connectDB();
+         
+     prep = conn.prepareStatement("update produtos set status = ? where id = ?"); 
+     prep.setString(1, "vendido");
+     prep.setInt(2, id);
+     prep.executeUpdate();
     
-    
-        
+     } catch (SQLException ex) {
+             System.out.println("driver não está disponível para acesso ou não existe");
+        }  
+            
+    }
+    public  ArrayList<ProdutosDTO> listarProdutosVendidos(){
+       
+        try{
+         conn = new conectaDAO().connectDB();
+         
+         prep = conn.prepareStatement("SELECT * from produtos where status = ?");
+         prep.setString(1, "vendido");
+         resultset = prep.executeQuery();
+          while(resultset.next()){
+           ProdutosDTO p = new ProdutosDTO();    
+           p.setId(resultset.getInt("id"));
+           p.setNome(resultset.getString("nome"));
+           p.setStatus(resultset.getString("status"));
+           p.setValor(resultset.getInt("valor"));
+           
+           listagem.add(p);
+          }
+         } catch (SQLException ex) {
+             System.out.println("driver não está disponível para acesso ou não existe");
+        }        
+        return listagem;
+    }
+           
 }
-
