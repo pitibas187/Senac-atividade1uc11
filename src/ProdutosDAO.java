@@ -65,8 +65,19 @@ public class ProdutosDAO {
         return listagem;
     }
     
+    public void venderProduto(int id){
+     try{   
+     conn = new conectaDAO().connectDB();
+         
+     prep = conn.prepareStatement("update produtos set status = ? where id = ?"); 
+     prep.setString(1, "vendido");
+     prep.setInt(2, id);
+     prep.executeUpdate();
     
-    
-        
+     } catch (SQLException ex) {
+             System.out.println("driver não está disponível para acesso ou não existe");
+        }  
+            
+    }
+           
 }
-
